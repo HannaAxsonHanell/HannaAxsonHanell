@@ -1,0 +1,25 @@
+{% block content %}
+<h2>Sell Stocks</h2>
+<p><strong>Advice:</strong> {{ advice }}</p>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <div class="form-group">
+    {{ form.symbol.label }}  
+    {{ form.symbol(class="form-control") }}
+    <br>
+    {{ form.shares.label }}
+    {{ form.shares(class="form-control") }}
+    {{ form.submit(class="btn btn-success mt-2") }}
+  </div>
+</form>
+
+<h3 class="mt-4">Your Portfolio</h3>
+<ul>
+  {% for symbol, shares in portfolio.items() %}
+    <li>{{ symbol }} — {{ shares }} shares</li>
+  {% else %}
+    <li>No holdings yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

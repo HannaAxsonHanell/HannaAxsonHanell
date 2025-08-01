@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>My Portfolio</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Shares</th>
+        <th>Current Price</th>
+        <th>Total Value</th>
+        <th>Gain / Loss</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stock in portfolio_data %}
+      <tr>
+        <td>{{ stock.ticker }}</td>
+        <td>{{ stock.shares }}</td>
+        <td>${{ '%.2f'|format(stock.current_price) }}</td>
+        <td>${{ '%.2f'|format(stock.value) }}</td>
+        <td>${{ '%.2f'|format(stock.gain_loss) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

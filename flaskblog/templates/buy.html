@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Buy Stocks</h2>
+<p><strong>Advice:</strong> {{ advice }}</p>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <p>Stock Symbol</p>
+  <div class="form-group">
+    <select name="symbol" class="form-control">
+        {% for ticker in stock_options %}
+            <option value="{{ ticker }}">{{ ticker }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    {{ form.shares.label }} {{ form.shares(class="form-control") }}
+    <br>
+    {{ form.submit(class="btn btn-success mt-2") }}
+  </div>
+</form>
+<div style="float: right; width: 300px; margin-top: 80px;">
+    <h3 class="mt-4">Your Portfolio</h3>
+    <ul>
+    {% for symbol, shares in portfolio.items() %}
+        <li>{{ symbol }} — {{ shares }} shares</li>
+    {% else %}
+        <li>No holdings yet.</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

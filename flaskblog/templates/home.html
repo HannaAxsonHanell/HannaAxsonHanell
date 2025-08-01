@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <header>
+    <h1>Learn to Trade — Risk-Free</h1>
+    </header>
+    <br>
+    <section>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.portfolio') }}" class="cta-button">Start Trading</a>
+    {% else %}
+        <a href="{{ url_for('users.register') }}" class="cta-button">Sign Up</a>
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+        <div class="card">
+            <h3>1. Sign Up</h3>
+            <p>Create an account — no financial info needed.</p>
+        </div>
+        <div class="card">
+            <h3>2. Simulate Trades</h3>
+            <p>Practice with virtual funds in real market conditions.</p>
+        </div>
+        <div class="card">
+            <h3>3. Learn as You Go</h3>
+            <p>In-app tips and definitions help you understand key concepts.</p>
+        </div>
+        </div>
+    {% endif %}
+    </section>
+
+
+{% endblock content %}
