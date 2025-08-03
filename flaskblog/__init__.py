@@ -14,10 +14,13 @@ def create_app(config_class=config):
     from flaskblog.posts.routes import posts
     from flaskblog.main.routes import main
     from flaskblog.errors.handlers import errors
+    from flaskblog.trading.routes import trading
 
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
+    app.register_blueprint(trading)
+    print(app.url_map)
 
     return app

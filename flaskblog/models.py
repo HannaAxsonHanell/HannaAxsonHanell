@@ -46,7 +46,7 @@ class User(db.Model, UserMixin):
         for txn in self.transactions:
             symbol = txn.stock_symbol
             portfolio.setdefault(symbol, 0)
-            if txn.transaction_type == 'buy':
+            if txn.transaction_type == 'buying':
                 portfolio[symbol] += txn.shares
             else:
                 portfolio[symbol] -= txn.shares

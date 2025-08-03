@@ -1,12 +1,13 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_required, current_user
-from flaskblog.trading import trading
 from flaskblog.trading.forms import BuyForm, SellForm
 from flaskblog.models import StockTransaction
 from flaskblog.extensions import db
 import random
 import yfinance as yf
 from flaskblog.users.utils import calculate_portfolio_value, get_current_price
+
+trading = Blueprint('trading', __name__)
 
 @trading.route("/buy", methods=['GET', 'POST'])
 @login_required
@@ -15,11 +16,11 @@ def buy():
     form = BuyForm()
     if form.validate_on_submit():
         price = get_current_price(form.symbol.data.upper())
-        transaction = StockTransaction(user_id=current_user.id, stock_symbol=form.symbol.data.upper(), shares=form.shares.data, price= price or 0, transaction_type='buy')
+        transaction = StockTransaction(user_id=current_user.id, stock_symbol=form.symbol.data.upper(), shares=form.shares.data, price= price or 0, transaction_type='buying')
         db.session.add(transaction)
         db.session.commit()
         flash(f'Bought {form.shares.data} shares of {form.symbol.data.upper()}', 'success')
-        return redirect(url_for('trading.buy'))
+        return redirect(url_for('buy.html'))
     stock_options = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
     return render_template('buy.html', form=form, portfolio=current_user.get_portfolio(), advice=get_stock_advice(), total_value=total_value, stock_options=stock_options)
 

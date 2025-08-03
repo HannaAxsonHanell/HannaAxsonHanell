@@ -20,7 +20,7 @@ def portfolio():
         
         holdings[symbol]['shares'] += txn.shares
 
-        if txn.transaction_type == 'buy':
+        if txn.transaction_type == 'buying':
             holdings[symbol]['total_spent'] += txn.shares * txn.price
 
     portfolio_data = []
